@@ -1,5 +1,5 @@
 const Contact = require("../models/contact");
-const mailService = require("../services/mailService");
+const mailService = require("../services/mailer.service");
 
 /**
  * ==========================
