@@ -8,7 +8,28 @@ const errorHandler = require('./middleware/errorHandler');
 const app = express();
 
 app.use(helmet());
-app.use(cors());
+
+const allowedOrigins = [
+  process.env.FRONTEND_URL || 'http://localhost:5173',
+  'http://127.0.0.1:5173'
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // Autorise les requêtes sans origine (comme Postman)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin) || process.env.NODE_ENV === 'development') {
+      return callback(null, true);
+    }
+
+    console.warn(`❌ CORS refusé pour l'origine: ${origin}`);
+    return callback(new Error('Not allowed by CORS'));
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true,
+}));
+
 app.use(express.json());
 app.use(morgan('tiny'));
 

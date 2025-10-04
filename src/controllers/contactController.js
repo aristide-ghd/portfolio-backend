@@ -18,7 +18,7 @@ const sendContact = async (req, res) => {
 
     // Sauvegarde en DB (optionnelle)
     let saved;
-    if (process.env.MONGO_URI) {
+    if (process.env.MONGODB_URI) {
       try {
         saved = await Contact.create({
           name,
@@ -91,7 +91,7 @@ const sendContact = async (req, res) => {
     });
 
     return res.status(201).json({
-      message: "Message envoyé avec succès.",
+      message: "Message envoyé avec succès. Je vous répondrai dès que possible.",
       contact: {
         id: saved ? saved._id : undefined,
         name,
