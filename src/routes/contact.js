@@ -11,7 +11,7 @@ const { limiter } = require('../middleware/rateLimiting');
  * @access  Public
  */
 router.post(
-  '/contact', 
+  '/register_form', 
   limiter, // Appliquer la limitation de taux 
   yupValidator(contactSchema, 'body'), 
   sendContact  // Utiliser la fonction sendContact exportée

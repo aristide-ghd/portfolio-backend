@@ -39,7 +39,7 @@ function mockEmail({ to, subject, html, text }) {
   });
 }
 
-async function sendMail({ to, subject, html, text }) {
+async function sendMail({ to, subject, html, text, replyTo }) {
   if (!to || !subject) {
     throw new Error("❌ 'to' et 'subject' sont obligatoires pour sendMail()");
   }
@@ -54,7 +54,7 @@ async function sendMail({ to, subject, html, text }) {
 
   try {
     const transporter = buildTransport();
-    const result = await transporter.sendMail({ from, to, subject, html, text });
+    const result = await transporter.sendMail({ from, to, subject, html, text, replyTo });
     console.info(`📧 Email envoyé à ${to} (${result.messageId})`);
     return result;
   } catch (err) {
